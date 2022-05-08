@@ -14,6 +14,9 @@ connectDB()
 // Initialize App
 const app = express()
 
+// Body Parser
+app.use(express.json())
+
 // Route Files
 const bootcamps = require('./routes/bootcamps')
 
