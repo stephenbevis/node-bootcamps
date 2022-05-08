@@ -1,11 +1,15 @@
 // Imports
 const express = require('express')
 const dotenv = require('dotenv')
+const connectDB = require('./config/db')
 
 // Load Environment Variables
 dotenv.config({
     path: './config/config.env'
 })
+
+// Connect To MongoDB
+connectDB()
 
 // Initialize App
 const app = express()
@@ -18,4 +22,12 @@ app.use('/api/v1/bootcamps', bootcamps)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () => console.log(`Server Running: Port ${PORT}`))
+const server = app.listen(PORT, () => console.log(`Server Running: Port ${PORT}`))
+
+// Handle Promise Rejections
+process.on('unhandledRejection', (error, promise) => {
+    console.log(`Error: ${error.message}`)
+    
+    // Close Server & Exit Process
+    server.close(() => process.exit(1))
+})
