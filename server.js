@@ -21,7 +21,7 @@ app.use(express.json())
 // Route Files
 const bootcamps = require('./routes/bootcamps')
 
-// Routers
+// Routes
 app.use('/api/v1/bootcamps', bootcamps)
 app.use(errorHandler)
 
