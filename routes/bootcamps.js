@@ -1,5 +1,9 @@
 // Imports
 const express = require('express')
+
+// Other Resource Routers
+const courseRouter = require('./courses')
+
 const router = express.Router()
 
 // Controllers
@@ -11,6 +15,9 @@ const {
     deleteBootcamp,
     getBootcampsInRadius
 } = require('../controllers/bootcamps')
+
+// Re-Route Into Other Resource Routers
+router.use('/:bootcampId/courses', courseRouter)
 
 // Routes
 router.route('/radius/:zipcode/:distance')
